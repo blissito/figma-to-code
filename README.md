@@ -49,11 +49,16 @@ claude --version
 claude --chrome
 ```
 
-### 4. Verificar conexión
+### 4. (Opcional) Habilitar Chrome por defecto
+
+Para no tener que usar `--chrome` cada vez:
 
 ```
 /chrome
+→ Seleccionar "Enabled by default"
 ```
+
+> **Nota**: Esto aumenta el uso de contexto porque las herramientas de Chrome siempre están cargadas.
 
 ## Setup: Figma MCP (Automático)
 
