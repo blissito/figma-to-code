@@ -63,7 +63,15 @@ If you need to configure it manually:
 claude mcp add --transport http figma https://mcp.figma.com/mcp
 ```
 
-OAuth authentication happens automatically the first time you use a Figma tool.
+### Authentication
+
+After adding Figma MCP, you need to authenticate:
+
+```
+/mcp → Select "figma" → "Authenticate" → Browser opens
+```
+
+Tokens are stored and refreshed automatically.
 
 ## Usage
 

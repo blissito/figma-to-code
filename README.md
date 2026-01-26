@@ -70,7 +70,15 @@ Si necesitas configurarlo manualmente:
 claude mcp add --transport http figma https://mcp.figma.com/mcp
 ```
 
-La autenticación OAuth ocurre automáticamente la primera vez que uses una herramienta de Figma.
+### Autenticación
+
+Después de agregar Figma MCP, necesitas autenticarte:
+
+```
+/mcp → Seleccionar "figma" → "Authenticate" → Se abre el navegador
+```
+
+Los tokens se guardan y refrescan automáticamente.
 
 ## Uso
 
