@@ -2,7 +2,7 @@
 
 Construye componentes pixel-perfect desde diseños de Figma o imágenes usando HTML + TailwindCSS.
 
-> Build by blissito inspired by CC_Skills
+> Built by blissito inspired by CC_Skills
 
 [English version](README_EN.md)
 
@@ -14,6 +14,9 @@ claude plugin marketplace add blissito/figma-to-code
 
 # Instalar el plugin
 claude plugin install figma-to-code@blissito
+
+# Ejecutar setup (agrega Figma MCP automáticamente)
+claude --init
 ```
 
 ## Requisitos
@@ -52,15 +55,17 @@ claude --chrome
 /chrome
 ```
 
-## Setup: Figma MCP (Opcional)
+## Setup: Figma MCP (Automático)
 
-Solo necesario si vas a usar links de Figma:
+Figma MCP se configura automáticamente al ejecutar `claude --init` después de instalar el plugin.
+
+Si necesitas configurarlo manualmente:
 
 ```bash
 claude mcp add --transport http figma https://mcp.figma.com/mcp
 ```
 
-La autenticación ocurre automáticamente la primera vez.
+La autenticación OAuth ocurre automáticamente la primera vez que uses una herramienta de Figma.
 
 ## Uso
 

@@ -10,6 +10,9 @@ claude plugin marketplace add blissito/figma-to-code
 
 # Install the plugin
 claude plugin install figma-to-code@blissito
+
+# Run setup (automatically adds Figma MCP)
+claude --init
 ```
 
 ## Requirements
@@ -44,15 +47,17 @@ claude --chrome
 /chrome
 ```
 
-## Setup: Figma MCP (Optional)
+## Setup: Figma MCP (Automatic)
 
-Only needed if using Figma links:
+Figma MCP is automatically configured when you run `claude --init` after installing the plugin.
+
+If you need to configure it manually:
 
 ```bash
 claude mcp add --transport http figma https://mcp.figma.com/mcp
 ```
 
-Authentication happens automatically on first use.
+OAuth authentication happens automatically the first time you use a Figma tool.
 
 ## Usage
 
