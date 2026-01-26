@@ -14,7 +14,7 @@
       "author": {
         "name": "blissito"
       },
-      "source": ".",
+      "source": "./",
       "category": "development",
       "homepage": "https://github.com/blissito/figma-to-code"
     }
