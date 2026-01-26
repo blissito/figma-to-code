@@ -6,9 +6,6 @@ output.html
 test_*.png
 *.png
 
-# Local experiments
-ftc-android/
-
 # OS files
 .DS_Store
 

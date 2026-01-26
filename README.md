@@ -1,88 +1,118 @@
 # Figma to Code
 
-Build pixel-perfect components from Figma designs or images using HTML + TailwindCSS.
+Construye componentes pixel-perfect desde diseños de Figma o imágenes usando HTML + TailwindCSS.
 
-## Install
+[English version](README_EN.md)
+
+## Instalación
 
 ```bash
-# Add the marketplace (only once)
+# Agregar marketplace (solo una vez)
 claude plugin marketplace add blissito/figma-to-code
 
-# Install the plugin
+# Instalar el plugin
 claude plugin install figma-to-code@blissito
 ```
 
-## Requirements
+## Requisitos
 
 - Claude Code v2.0.73+
-- Claude in Chrome extension v1.0.36+
-- Figma MCP (optional, for Figma links)
+- **Claude in Chrome extension v1.0.36+** (requerida)
+- Figma MCP (opcional, para links de Figma)
 - Plan Pro/Team/Enterprise
 
-## Setup Figma MCP
+## Setup: Chrome Extension
+
+La extensión de Chrome es **obligatoria** para este plugin.
+
+### 1. Instalar la extensión
+- Ir a [Chrome Web Store](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn)
+- Click en "Añadir a Chrome"
+- Reiniciar Chrome
+
+### 2. Verificar versión de Claude Code
+```bash
+claude --version
+# Debe ser 2.0.73 o superior
+```
+
+### 3. Iniciar con Chrome habilitado
+```bash
+claude --chrome
+```
+
+### 4. Verificar conexión
+```
+/chrome
+```
+
+## Setup: Figma MCP (Opcional)
+
+Solo necesario si vas a usar links de Figma:
 
 ```bash
 claude mcp add --transport http figma https://mcp.figma.com/mcp
 ```
 
-Authentication happens automatically on first use.
+La autenticación ocurre automáticamente la primera vez.
 
-## Usage
+## Uso
 
 ```bash
 claude --chrome
 ```
 
-Then:
+Luego:
 
 ```
 /ftc
 ```
 
-## How it works
+## Cómo Funciona
 
 ### Workflow "3 Ojos"
 
-The skill uses 3 information sources in parallel:
+El skill usa 3 fuentes de información en paralelo:
 
-| Eye | Source | Purpose |
-|-----|--------|---------|
-| MCP | Figma API | Precise data: hex colors, fonts, spacing in px |
-| Chrome Tab 1 | Figma visual | Visual reference, zoom, manual inspection |
-| Chrome Tab 2 | HTML output | Rendered result, comparison |
+| Ojo | Fuente | Propósito |
+|-----|--------|-----------|
+| 👁️ MCP | Figma API | Datos precisos: colores hex, fonts, spacing en px |
+| 👁️ Chrome Tab 1 | Figma visual | Referencia visual, zoom, inspección |
+| 👁️ Chrome Tab 2 | HTML output | Resultado renderizado, comparación |
 
-### Process
+### Proceso
 
-1. Provide a Figma link or local image
-2. Claude extracts design data via Figma MCP
-3. Generates HTML + TailwindCSS
-4. Starts local server (`python3 -m http.server 8888`)
-5. Opens in Chrome, compares with reference
-6. Iterates until pixel-perfect
+1. Proporciona un link de Figma o imagen local
+2. Claude extrae datos de diseño via Figma MCP
+3. Genera HTML + TailwindCSS
+4. Inicia servidor local (`python3 -m http.server 8888`)
+5. Abre en Chrome, compara con referencia
+6. Itera hasta pixel-perfect
 
-### Figma MCP Tools Used
+### Herramientas de Figma MCP
 
-| Tool | Purpose |
-|------|---------|
-| `get_metadata` | Component structure, node IDs |
-| `get_design_context` | Generated code + asset URLs |
-| `get_screenshot` | Visual capture of node |
-| `get_variable_defs` | Design tokens (colors, spacing) |
+| Herramienta | Propósito |
+|-------------|-----------|
+| `get_metadata` | Estructura del componente, node IDs |
+| `get_design_context` | Código generado + URLs de assets |
+| `get_screenshot` | Captura visual del nodo |
+| `get_variable_defs` | Design tokens (colores, spacing) |
 
-### Asset URLs
+### URLs de Assets
 
-`get_design_context` returns temporary image URLs (valid 7 days):
+`get_design_context` devuelve URLs de imágenes temporales (válidas 7 días):
+
 ```javascript
 const img = "https://www.figma.com/api/mcp/asset/uuid";
-// Use directly in <img src="...">
+// Usar directo en <img src="...">
 ```
 
-## Limitations
+## Limitaciones
 
-- **Rate limits**: ~50 requests/min on Figma MCP
-- **file:// URLs**: Don't work with Chrome extension, use localhost
-- **Large designs**: Use specific node IDs, not full pages
+- **Rate limits**: ~50 requests/min en Figma MCP
+- **URLs file://**: No funcionan con Chrome extension, usar localhost
+- **Diseños grandes**: Usar node IDs específicos, no páginas completas
 
-## License
+## Licencia
 
 MIT
