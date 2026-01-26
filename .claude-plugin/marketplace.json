@@ -17,6 +17,20 @@
       "source": "./",
       "category": "development",
       "homepage": "https://github.com/blissito/figma-to-code"
+    },
+    {
+      "name": "figma-to-android",
+      "description": "Figma to Code for Android - Pixel-perfect implementation using ADB and Figma MCP",
+      "version": "0.0.1",
+      "author": {
+        "name": "blissito"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/blissito/figma-to-android.git"
+      },
+      "category": "development",
+      "homepage": "https://github.com/blissito/figma-to-android"
     }
   ]
 }
