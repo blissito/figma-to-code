@@ -94,7 +94,7 @@ Luego:
 
 ## Cómo Funciona
 
-### Workflow "3 Ojos"
+### Workflow "3 Ojos" ["The third eye"]
 
 El skill usa 3 fuentes de información en paralelo:
 
