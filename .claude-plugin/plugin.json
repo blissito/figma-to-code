@@ -1,0 +1,19 @@
+{
+  "name": "figma-to-code",
+  "description": "Build pixel-perfect components from Figma or images using HTML + TailwindCSS",
+  "version": "1.0.0",
+  "author": {
+    "name": "blissito"
+  },
+  "homepage": "https://github.com/blissito/figma-to-code",
+  "repository": "https://github.com/blissito/figma-to-code",
+  "license": "MIT",
+  "keywords": [
+    "figma",
+    "tailwind",
+    "html",
+    "pixel-perfect",
+    "mcp",
+    "chrome"
+  ]
+}
