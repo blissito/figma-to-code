@@ -5,7 +5,11 @@ Build pixel-perfect components from Figma designs or images using HTML + Tailwin
 ## Install
 
 ```bash
-claude plugin install github:blissito/figma-to-code
+# Add the marketplace (only once)
+claude plugin marketplace add blissito/figma-to-code
+
+# Install the plugin
+claude plugin install figma-to-code@blissito
 ```
 
 ## Requirements
@@ -23,7 +27,7 @@ claude --chrome
 Then:
 
 ```
-/figma-to-code:ftc
+/ftc
 ```
 
 ## How it works
