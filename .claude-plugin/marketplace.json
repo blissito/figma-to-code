@@ -1,11 +1,22 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "blissito-figma-to-code",
-  "description": "Marketplace for figma-to-code plugin",
-  "version": "1.0.0",
+  "description": "Marketplace for figma-to-code plugin - Build pixel-perfect components from Figma or images",
+  "owner": {
+    "name": "blissito",
+    "email": "blissito@github.com"
+  },
   "plugins": [
     {
       "name": "figma-to-code",
-      "path": "."
+      "description": "Build pixel-perfect components from Figma or images using HTML + TailwindCSS",
+      "version": "1.0.0",
+      "author": {
+        "name": "blissito"
+      },
+      "source": ".",
+      "category": "development",
+      "homepage": "https://github.com/blissito/figma-to-code"
     }
   ]
 }
