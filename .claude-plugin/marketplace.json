@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "blissito-figma-to-code",
-  "description": "Marketplace for figma-to-code plugin - Build pixel-perfect components from Figma or images",
+  "name": "blissito",
+  "description": "Plugins by blissito",
   "owner": {
     "name": "blissito",
     "email": "blissito@github.com"
