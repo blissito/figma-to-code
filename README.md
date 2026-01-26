@@ -2,6 +2,8 @@
 
 Construye componentes pixel-perfect desde diseños de Figma o imágenes usando HTML + TailwindCSS.
 
+> Build by blissito inspired by CC_Skills
+
 [English version](README_EN.md)
 
 ## Instalación
@@ -26,22 +28,26 @@ claude plugin install figma-to-code@blissito
 La extensión de Chrome es **obligatoria** para este plugin.
 
 ### 1. Instalar la extensión
+
 - Ir a [Chrome Web Store](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn)
 - Click en "Añadir a Chrome"
 - Reiniciar Chrome
 
 ### 2. Verificar versión de Claude Code
+
 ```bash
 claude --version
 # Debe ser 2.0.73 o superior
 ```
 
 ### 3. Iniciar con Chrome habilitado
+
 ```bash
 claude --chrome
 ```
 
 ### 4. Verificar conexión
+
 ```
 /chrome
 ```
@@ -74,11 +80,11 @@ Luego:
 
 El skill usa 3 fuentes de información en paralelo:
 
-| Ojo | Fuente | Propósito |
-|-----|--------|-----------|
-| 👁️ MCP | Figma API | Datos precisos: colores hex, fonts, spacing en px |
-| 👁️ Chrome Tab 1 | Figma visual | Referencia visual, zoom, inspección |
-| 👁️ Chrome Tab 2 | HTML output | Resultado renderizado, comparación |
+| Ojo             | Fuente       | Propósito                                         |
+| --------------- | ------------ | ------------------------------------------------- |
+| 👁️ MCP          | Figma API    | Datos precisos: colores hex, fonts, spacing en px |
+| 👁️ Chrome Tab 1 | Figma visual | Referencia visual, zoom, inspección               |
+| 👁️ Chrome Tab 2 | HTML output  | Resultado renderizado, comparación                |
 
 ### Proceso
 
@@ -91,12 +97,12 @@ El skill usa 3 fuentes de información en paralelo:
 
 ### Herramientas de Figma MCP
 
-| Herramienta | Propósito |
-|-------------|-----------|
-| `get_metadata` | Estructura del componente, node IDs |
-| `get_design_context` | Código generado + URLs de assets |
-| `get_screenshot` | Captura visual del nodo |
-| `get_variable_defs` | Design tokens (colores, spacing) |
+| Herramienta          | Propósito                           |
+| -------------------- | ----------------------------------- |
+| `get_metadata`       | Estructura del componente, node IDs |
+| `get_design_context` | Código generado + URLs de assets    |
+| `get_screenshot`     | Captura visual del nodo             |
+| `get_variable_defs`  | Design tokens (colores, spacing)    |
 
 ### URLs de Assets
 
