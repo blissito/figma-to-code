@@ -86,6 +86,12 @@ Los tokens se guardan y refrescan automáticamente.
 claude --chrome
 ```
 
+O para evitar confirmaciones manuales durante el loop de refinamiento:
+
+```bash
+claude --chrome --dangerously-skip-permissions
+```
+
 Luego:
 
 ```
@@ -94,7 +100,7 @@ Luego:
 
 ## Cómo Funciona
 
-### Workflow "3 Ojos" ["The third eye"]
+### Workflow "3 Ojos" | [The third eye]
 
 El skill usa 3 fuentes de información en paralelo:
 
