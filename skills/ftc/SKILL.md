@@ -1,12 +1,14 @@
 ---
 name: ftc
-description: Build pixel-perfect components from images or Figma using HTML + TailwindCSS
+description: Build pixel-perfect components from Figma using HTML + TailwindCSS (requires Figma MCP)
 allowed-tools: [Bash, Read, Write, Edit, Glob, Grep]
 ---
 
-# /ftc: Figma/Image to Code
+# /ftc: Figma to Code
 
-Build pixel-perfect HTML + TailwindCSS components from images or Figma designs.
+Build pixel-perfect HTML + TailwindCSS components from Figma designs.
+
+**⚠️ REQUIREMENT: Figma MCP must be configured and authenticated. This skill will NOT proceed without it.**
 
 ## Phase 0: Setup & Configuration
 
@@ -35,7 +37,8 @@ Check if Figma MCP is available and authenticated:
 ### 3. Verify Connection
 Once authenticated, test with `whoami` to confirm Figma MCP works.
 
-**Note**: Figma MCP is optional - the skill works with local images too. Skip Figma setup if user only has local images.
+**⚠️ MANDATORY: Figma MCP MUST be configured and authenticated before proceeding.**
+**DO NOT continue to Phase 1 without a working Figma MCP connection.**
 
 ---
 
@@ -56,23 +59,18 @@ Este skill funciona mejor con 3 fuentes de información en paralelo:
 
 ---
 
-## Phase 1: Get Reference
+## Phase 1: Get Figma Reference
 
-**Ask the user**: "Do you have a local image or a Figma link?"
+**Ask the user**: "Paste the Figma link to the component you want to build."
 
-### Option A: Local Image
-- User provides path to PNG, JPG, or other image file
-- Read the image using the Read tool (it supports images)
-- Analyze: colors, layout, typography, spacing, shadows, borders
+### Extract Design Data from Figma MCP
+Use Figma MCP to extract all design data:
+- `get_metadata` → estructura y node IDs del componente
+- `get_design_context` → código generado + URLs de assets
+- `get_screenshot` → captura visual del nodo
+- `get_variable_defs` → design tokens (colores, spacing)
 
-### Option B: Figma Link
-- If Figma MCP is configured and authenticated, use it to extract design data:
-  - `get_metadata` → estructura y node IDs del componente
-  - `get_design_context` → código generado + URLs de assets
-  - `get_screenshot` → captura visual del nodo
-  - `get_variable_defs` → design tokens (colores, spacing)
-- If not configured or needs auth: Go back to Phase 0 Step 2 to complete setup
-- Alternative: User can take a screenshot of the Figma design and provide it as a local image
+**If MCP is not configured or needs auth:** STOP. Go back to Phase 0 and complete setup first.
 
 ### Usando Assets de Figma
 
@@ -148,12 +146,33 @@ Visually compare the screenshot with the original image:
 - Check typography looks right
 - Check shadows and borders
 
-### 5. Refinement Loop
-If there are differences:
-1. Identify what's wrong (e.g., "padding is too large", "color is off")
+### 5. Refinement Loop (MANDATORY - DO NOT SKIP)
+
+**⚠️ CRITICAL: NEVER abandon this loop until the result is IDENTICAL to the design.**
+
+If there are ANY differences, no matter how small:
+1. Identify what's wrong (e.g., "padding is too large", "color is off", "1px misalignment")
 2. Edit the HTML to fix it
 3. Refresh and screenshot again
-4. Repeat until pixel-perfect
+4. Compare again with extreme attention to detail
+5. **REPEAT until pixel-perfect** - this is non-negotiable
+
+**Exit criteria (ALL must be true):**
+- [ ] Colors match exactly (check hex values)
+- [ ] Spacing is identical (padding, margin, gaps)
+- [ ] Typography matches (size, weight, line-height)
+- [ ] Borders and shadows are correct
+- [ ] Layout and alignment are perfect
+- [ ] Icons/images are positioned correctly
+
+**DO NOT proceed to Phase 4 until ALL criteria are met.**
+
+If you've done 5+ iterations and still see differences:
+- Take a closer look at the reference
+- Use Figma MCP to get exact values
+- Ask the user to zoom in on specific areas if needed
+
+**The goal is ZERO visual difference between the output and the design.**
 
 ---
 
@@ -195,13 +214,17 @@ If user requests changes, go back to Phase 3.
 
 ```
 User: /ftc
-Claude: Do you have a local image or a Figma link?
+Claude: [Verifies Figma MCP is connected with whoami]
+Claude: Paste the Figma link to the component you want to build.
 User: https://www.figma.com/design/abc123/MyFile?node-id=1-234
 Claude: [Starts local server, opens Chrome tabs]
 Claude: [Gets design context from Figma MCP]
 Claude: I see a card with #1a1a2e background, 16px padding, Inter font. Let me create it.
 Claude: [Creates output.html with asset URLs from Figma]
 Claude: [Opens localhost:8888 in Chrome, takes screenshot]
-Claude: [Compares, adjusts spacing]
+Claude: [Compares with Figma screenshot - finds 2px padding difference]
+Claude: [Fixes padding, takes new screenshot]
+Claude: [Compares again - colors match, spacing match, typography match]
+Claude: [All criteria met - exits refinement loop]
 Claude: Here's the final result. Does it match what you need?
 ```
