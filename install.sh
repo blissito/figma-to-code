@@ -132,8 +132,8 @@ launch_claude() {
   # Small delay so user can read
   sleep 1
 
-  # Replace this process with claude
-  exec claude --chrome -p "/ftc"
+  # Replace this process with claude (full auto mode)
+  exec claude --chrome --dangerously-skip-permissions -p "/ftc"
 }
 
 # Check if Claude Code is installed
