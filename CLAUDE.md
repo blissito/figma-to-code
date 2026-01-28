@@ -553,4 +553,48 @@ const img = "https://www.figma.com/api/mcp/asset/uuid";
 
 ---
 
-_Documento generado el 26 de Enero 2026_
+## Parte 9: Deteccion Automatica de Framework
+
+### Funcionalidad
+
+El skill `/ftc` ahora detecta automaticamente el framework del proyecto y genera codigo apropiado:
+
+| Framework | Deteccion | Output |
+|-----------|-----------|--------|
+| Next.js | `next.config.*` o `"next"` en package.json | `ComponentName.tsx` |
+| React | `"react"` en package.json (sin Next) | `ComponentName.jsx` / `.tsx` |
+| Vue | `"vue"` en package.json | `ComponentName.vue` |
+| Svelte | `svelte.config.js` o `"svelte"` en package.json | `ComponentName.svelte` |
+| Angular | `angular.json` o `"@angular/core"` en package.json | `component.ts` + `.html` |
+| Astro | `astro.config.*` o `"astro"` en package.json | `ComponentName.astro` |
+| Sin framework | Fallback | `output.html` |
+
+### Deteccion adicional
+
+- **TypeScript**: Si existe `tsconfig.json`, usa extensiones `.tsx`/`.ts`
+- **Styling**: Detecta Tailwind, CSS Modules, styled-components, Emotion
+- **Ubicacion**: Busca `src/components/`, `components/`, `app/components/`
+- **Puerto**: Usa el puerto correcto del dev server (5173, 3000, 8080, etc.)
+
+### Flujo actualizado
+
+1. Phase 0: Verificar Chrome y Figma MCP
+2. **Phase 0.5: Project Discovery** (nuevo)
+   - Detectar framework
+   - Detectar TypeScript
+   - Detectar styling
+   - Detectar ubicacion de componentes
+   - Detectar puerto del dev server
+3. Phase 1: Pedir link de Figma + nombre y ubicacion del componente
+4. Phase 2: Implementar segun framework detectado
+5. Phase 3: Comparar y refinar (usa dev server del proyecto)
+6. Phase 4: Entregar
+
+### Preview segun framework
+
+- **React/Next/Vue/Svelte/Angular/Astro**: Usa el dev server existente del proyecto
+- **HTML estatico**: Inicia `python3 -m http.server 8888`
+
+---
+
+_Documento actualizado el 28 de Enero 2026_
