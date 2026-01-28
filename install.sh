@@ -2,6 +2,7 @@
 #
 # Figma to Code - Modern Installer
 # One-liner: curl -fsSL https://raw.githubusercontent.com/blissito/figma-to-code/main/install.sh | bash
+# English:   curl -fsSL https://raw.githubusercontent.com/blissito/figma-to-code/main/install.sh | bash -s -- --en
 #
 
 set -e
@@ -16,8 +17,57 @@ DIM='\033[2m'
 BOLD='\033[1m'
 NC='\033[0m'
 
-# Spinner frames
-SPINNER_FRAMES='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+# Default language: Spanish
+LANG_EN=false
+
+# Parse arguments
+for arg in "$@"; do
+  case $arg in
+    --en|--english)
+      LANG_EN=true
+      shift
+      ;;
+  esac
+done
+
+# i18n messages
+if [ "$LANG_EN" = true ]; then
+  MSG_TAGLINE="Pixel-perfect Figma to code, powered by Claude"
+  MSG_DETECTING="Detecting environment..."
+  MSG_CLAUDE_DETECTED="Claude Code detected"
+  MSG_CLAUDE_NOT_FOUND="Claude Code CLI not found"
+  MSG_INSTALL_CLAUDE="Install Claude Code first:"
+  MSG_OS="Operating system"
+  MSG_INSTALLING="Installing components..."
+  MSG_PLUGIN_INSTALLED="Plugin already installed"
+  MSG_INSTALLING_PLUGIN="Installing figma-to-code plugin..."
+  MSG_MCP_CONFIGURED="Figma MCP already configured"
+  MSG_CONFIGURING_MCP="Configuring Figma MCP..."
+  MSG_SUCCESS="figma-to-code installed successfully"
+  MSG_CHROME_REQUIRED="Chrome Extension required"
+  MSG_CHROME_HINT="If not installed, get it here:"
+  MSG_LAUNCHING="Launching Claude..."
+  MSG_STARTING="Starting claude --chrome with /ftc skill"
+  MSG_FIRST_TIME="First time? Complete Figma OAuth when prompted"
+else
+  MSG_TAGLINE="Figma a código pixel-perfect, powered by Claude"
+  MSG_DETECTING="Detectando entorno..."
+  MSG_CLAUDE_DETECTED="Claude Code detectado"
+  MSG_CLAUDE_NOT_FOUND="Claude Code CLI no encontrado"
+  MSG_INSTALL_CLAUDE="Instala Claude Code primero:"
+  MSG_OS="Sistema operativo"
+  MSG_INSTALLING="Instalando componentes..."
+  MSG_PLUGIN_INSTALLED="Plugin ya instalado"
+  MSG_INSTALLING_PLUGIN="Instalando plugin figma-to-code..."
+  MSG_MCP_CONFIGURED="Figma MCP ya configurado"
+  MSG_CONFIGURING_MCP="Configurando Figma MCP..."
+  MSG_SUCCESS="figma-to-code instalado correctamente"
+  MSG_CHROME_REQUIRED="Extensión de Chrome requerida"
+  MSG_CHROME_HINT="Si no la tienes, descárgala aquí:"
+  MSG_LAUNCHING="Iniciando Claude..."
+  MSG_STARTING="Iniciando claude --chrome con skill /ftc"
+  MSG_FIRST_TIME="¿Primera vez? Completa OAuth de Figma cuando aparezca"
+fi
 
 # Banner
 print_banner() {
@@ -32,7 +82,7 @@ print_banner() {
           |___/
 EOF
   echo -e "${NC}"
-  echo -e "${DIM}  Pixel-perfect Figma to code, powered by Claude${NC}"
+  echo -e "${DIM}  ${MSG_TAGLINE}${NC}"
   echo ""
 }
 
@@ -98,15 +148,10 @@ info() {
   echo -e "  ${CYAN}→${NC} $1"
 }
 
-# Warning
-warn() {
-  echo -e "  ${YELLOW}!${NC} $1"
-}
-
 # Print success message
 print_success() {
   echo ""
-  echo -e "  ${GREEN}${BOLD}✓ figma-to-code installed successfully${NC}"
+  echo -e "  ${GREEN}${BOLD}✓ ${MSG_SUCCESS}${NC}"
   echo ""
 }
 
@@ -114,19 +159,19 @@ print_success() {
 check_chrome_extension() {
   local chrome_url="https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn"
 
-  echo -e "${BOLD}  Chrome Extension required${NC}"
+  echo -e "${BOLD}  ${MSG_CHROME_REQUIRED}${NC}"
   echo ""
-  echo -e "  ${DIM}If not installed, get it here:${NC}"
+  echo -e "  ${DIM}${MSG_CHROME_HINT}${NC}"
   echo -e "  ${CYAN}${chrome_url}${NC}"
   echo ""
 }
 
 # Launch Claude with Chrome and /ftc
 launch_claude() {
-  echo -e "${BOLD}  Launching Claude...${NC}"
+  echo -e "${BOLD}  ${MSG_LAUNCHING}${NC}"
   echo ""
-  echo -e "  ${DIM}Starting claude --chrome with /ftc skill${NC}"
-  echo -e "  ${DIM}First time? Complete Figma OAuth when prompted${NC}"
+  echo -e "  ${DIM}${MSG_STARTING}${NC}"
+  echo -e "  ${DIM}${MSG_FIRST_TIME}${NC}"
   echo ""
 
   # Small delay so user can read
@@ -139,45 +184,45 @@ launch_claude() {
 # Check if Claude Code is installed
 check_claude_code() {
   if ! command -v claude &> /dev/null; then
-    error "Claude Code CLI not found"
+    error "$MSG_CLAUDE_NOT_FOUND"
     echo ""
-    info "Install Claude Code first:"
+    info "$MSG_INSTALL_CLAUDE"
     echo -e "     ${BOLD}npm install -g @anthropic-ai/claude-code${NC}"
     echo ""
     exit 1
   fi
 
   local version=$(claude --version 2>/dev/null | head -n1 || echo "unknown")
-  check "Claude Code detected ${DIM}(${version})${NC}"
+  check "${MSG_CLAUDE_DETECTED} ${DIM}(${version})${NC}"
 }
 
 # Install plugin from marketplace
 install_plugin() {
   # Check if already installed
   if claude plugin list 2>/dev/null | grep -q "figma-to-code"; then
-    check "Plugin already installed"
+    check "$MSG_PLUGIN_INSTALLED"
     return 0
   fi
 
-  run_with_spinner "Installing figma-to-code plugin..." claude plugin install marketplace:figma-to-code
+  run_with_spinner "$MSG_INSTALLING_PLUGIN" claude plugin install marketplace:figma-to-code
 }
 
 # Configure Figma MCP
 configure_figma_mcp() {
   # Check if already configured
   if claude mcp list 2>/dev/null | grep -q "figma"; then
-    check "Figma MCP already configured"
+    check "$MSG_MCP_CONFIGURED"
     return 0
   fi
 
-  run_with_spinner "Configuring Figma MCP..." claude mcp add --transport http figma https://mcp.figma.com/mcp
+  run_with_spinner "$MSG_CONFIGURING_MCP" claude mcp add --transport http figma https://mcp.figma.com/mcp
 }
 
 # Main installation flow
 main() {
   print_banner
 
-  echo -e "${BOLD}  Detecting environment...${NC}"
+  echo -e "${BOLD}  ${MSG_DETECTING}${NC}"
   echo ""
 
   # Step 1: Check Claude Code
@@ -190,10 +235,10 @@ main() {
     Linux*)  os="Linux" ;;
     MINGW*|MSYS*|CYGWIN*) os="Windows" ;;
   esac
-  check "Operating system: ${DIM}${os}${NC}"
+  check "${MSG_OS}: ${DIM}${os}${NC}"
 
   echo ""
-  echo -e "${BOLD}  Installing components...${NC}"
+  echo -e "${BOLD}  ${MSG_INSTALLING}${NC}"
   echo ""
 
   # Step 2: Install plugin
