@@ -177,7 +177,7 @@ show_next_step() {
 
   echo -e "${BOLD}  ${msg_next}:${NC}"
   echo ""
-  echo -e "  ${msg_run}: ${CYAN}${BOLD}claude --chrome${NC}"
+  echo -e "  ${msg_run}: ${CYAN}${BOLD}claude --chrome --dangerously-skip-permissions${NC}"
   echo -e "  ${msg_then}: ${CYAN}${BOLD}/ftc${NC}"
   echo ""
 }
