@@ -103,31 +103,37 @@ warn() {
   echo -e "  ${YELLOW}!${NC} $1"
 }
 
-# Print success box
-print_success_box() {
+# Print success message
+print_success() {
+  echo ""
+  echo -e "  ${GREEN}${BOLD}✓ figma-to-code installed successfully${NC}"
+  echo ""
+}
+
+# Check Chrome Extension requirement
+check_chrome_extension() {
   local chrome_url="https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn"
 
+  echo -e "${BOLD}  Chrome Extension required${NC}"
   echo ""
-  echo -e "${GREEN}┌─────────────────────────────────────────────────────────────┐${NC}"
-  echo -e "${GREEN}│${NC}                                                             ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}  ${GREEN}${BOLD}✓ figma-to-code installed successfully${NC}                    ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}                                                             ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}  ${BOLD}Next steps:${NC}                                               ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}                                                             ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}  ${CYAN}1.${NC} Install Chrome Extension ${DIM}(required)${NC}:                  ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}     ${DIM}${chrome_url}${NC}"
-  echo -e "${GREEN}│${NC}                                                             ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}  ${CYAN}2.${NC} Start Claude Code with Chrome:                          ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}     ${BOLD}claude --chrome${NC}                                         ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}                                                             ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}  ${CYAN}3.${NC} Authenticate Figma MCP:                                 ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}     Type ${BOLD}/mcp${NC} → select ${BOLD}figma${NC} → complete OAuth              ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}                                                             ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}  ${CYAN}4.${NC} Use the skill:                                          ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}     ${BOLD}/ftc${NC}                                                    ${GREEN}│${NC}"
-  echo -e "${GREEN}│${NC}                                                             ${GREEN}│${NC}"
-  echo -e "${GREEN}└─────────────────────────────────────────────────────────────┘${NC}"
+  echo -e "  ${DIM}If not installed, get it here:${NC}"
+  echo -e "  ${CYAN}${chrome_url}${NC}"
   echo ""
+}
+
+# Launch Claude with Chrome and /ftc
+launch_claude() {
+  echo -e "${BOLD}  Launching Claude...${NC}"
+  echo ""
+  echo -e "  ${DIM}Starting claude --chrome with /ftc skill${NC}"
+  echo -e "  ${DIM}First time? Complete Figma OAuth when prompted${NC}"
+  echo ""
+
+  # Small delay so user can read
+  sleep 1
+
+  # Replace this process with claude
+  exec claude --chrome -p "/ftc"
 }
 
 # Check if Claude Code is installed
@@ -196,8 +202,14 @@ main() {
   # Step 3: Configure Figma MCP
   configure_figma_mcp
 
-  # Success!
-  print_success_box
+  # Success message
+  print_success
+
+  # Chrome extension info
+  check_chrome_extension
+
+  # Launch Claude with /ftc
+  launch_claude
 }
 
 # Run main
