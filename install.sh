@@ -166,23 +166,20 @@ check_chrome_extension() {
   echo ""
 }
 
-# Launch Claude with Chrome
-launch_claude() {
-  local msg_type_ftc="Escribe /ftc para comenzar"
-  [ "$LANG_EN" = true ] && msg_type_ftc="Type /ftc to start"
+# Show next step
+show_next_step() {
+  local msg_next="Siguiente paso"
+  local msg_run="Ejecuta"
+  local msg_then="y escribe"
+  [ "$LANG_EN" = true ] && msg_next="Next step"
+  [ "$LANG_EN" = true ] && msg_run="Run"
+  [ "$LANG_EN" = true ] && msg_then="then type"
 
-  echo -e "${BOLD}  ${MSG_LAUNCHING}${NC}"
+  echo -e "${BOLD}  ${msg_next}:${NC}"
   echo ""
-  echo -e "  ${DIM}${MSG_FIRST_TIME}${NC}"
+  echo -e "  ${msg_run}: ${CYAN}${BOLD}claude --chrome${NC}"
+  echo -e "  ${msg_then}: ${CYAN}${BOLD}/ftc${NC}"
   echo ""
-  echo -e "  ${CYAN}${BOLD}→ ${msg_type_ftc}${NC}"
-  echo ""
-
-  # Small delay so user can read
-  sleep 2
-
-  # Replace this process with claude (interactive mode)
-  exec claude --chrome --dangerously-skip-permissions
 }
 
 # Check if Claude Code is installed
@@ -257,8 +254,8 @@ main() {
   # Chrome extension info
   check_chrome_extension
 
-  # Launch Claude with /ftc
-  launch_claude
+  # Show next step
+  show_next_step
 }
 
 # Run main
