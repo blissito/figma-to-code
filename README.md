@@ -2,6 +2,8 @@
 
 Pixel-perfect de Figma a codigo, con Claude.
 
+[![Video demo](https://img.youtube.com/vi/x2XNarpSDrI/maxresdefault.jpg)](https://youtu.be/x2XNarpSDrI)
+
 [English version](README_EN.md)
 
 ## Instalar
