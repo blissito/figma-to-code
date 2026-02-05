@@ -1,6 +1,7 @@
 # Figma to Code
 
 Pixel-perfect de Figma a codigo, con Claude.
+Mira todo el demo que grabé con Brendi en video:
 
 [![Video demo](https://img.youtube.com/vi/x2XNarpSDrI/maxresdefault.jpg)](https://youtu.be/x2XNarpSDrI)
 
@@ -22,15 +23,15 @@ Luego escribe `/ftc`
 
 ## Frameworks soportados
 
-| Framework | Output |
-|-----------|--------|
-| Next.js | `ComponentName.tsx` |
-| React | `ComponentName.jsx` / `.tsx` |
-| Vue | `ComponentName.vue` |
-| Svelte | `ComponentName.svelte` |
-| Angular | `component.ts` + `component.html` |
-| Astro | `ComponentName.astro` |
-| Sin framework | `output.html` |
+| Framework     | Output                            |
+| ------------- | --------------------------------- |
+| Next.js       | `ComponentName.tsx`               |
+| React         | `ComponentName.jsx` / `.tsx`      |
+| Vue           | `ComponentName.vue`               |
+| Svelte        | `ComponentName.svelte`            |
+| Angular       | `component.ts` + `component.html` |
+| Astro         | `ComponentName.astro`             |
+| Sin framework | `output.html`                     |
 
 El skill detecta automaticamente el framework de tu proyecto.
 
